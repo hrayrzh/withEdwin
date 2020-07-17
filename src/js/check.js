@@ -51,24 +51,17 @@ function check(name) {
     x = "Macedonia (the former Yugoslav Republic of)";
   } else if (x==="Russia") {
     x = "Russian Federation";
-		
-		
-		
-		
-  } else if (x==="Somaliland") {
-    x = "Somalia";
-		
-  } else if (x.includes("Eq. Guinea")) {
-    x = x.replace("Eq.", "Equatorial");
-  } else if (x.includes("PDR")) {
-    x = x.replace("PDR", "");
-    x = x.replace(" ", "");
   } else if (x==="Dominican Rep.") {
     x = "Dominican Republic";
   } else if (x==="United States") {
     x = "United States of America";
-  } else if (x.includes("Vietnam")) {
+  } else if (x === "Vietnam") {
     x = "Viet Nam";
+  } else if (x === "Eq. Guinea") {
+    x = "Equatorial Guinea";
+		
+  } else if (x==="Somaliland") {
+    x = "Somalia";
   }
   return x;
 }

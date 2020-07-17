@@ -15,19 +15,30 @@ Promise.all([
 
     console.log(covCountryFeatures);
     for (let i = 0; i < covCountryFeatures.length; i++) {
+			
       let div = document.createElement("div");
-      let nameFromCovid = covCountryFeatures[i].properties.name;
-			console.log(nameFromCovid);
+			const dataCov = new Covid(covCountryFeatures[i].properties);
+			
+			
+			
+      let nameFromCovid = dataCov.name;
+			
+//			console.log(nameFromCovid);
       let country = check(nameFromCovid);
-			console.log(country);
+//			console.log(country);
       let countryData = worldData.filter(data => data.name === country);
 			
-			let name = countryData[0].name;
-      let population = countryData[0].population;
-      let confirmed = covCountryFeatures[i].properties.confirmed;
-      let deaths = covCountryFeatures[i].properties.deaths;
-      let active = covCountryFeatures[i].properties.active;
-      let recovered = covCountryFeatures[i].properties.recovered;
+			const dataCntr = new Country(countryData[0]);
+			
+			
+		
+			
+			let name = dataCntr.name;
+      let population = dataCntr.population;
+      let confirmed = dataCov.confirmed;
+      let deaths = dataCov.deaths;
+      let active = dataCov.active;
+      let recovered = dataCov.recovered;
 			
       div.innerHTML += `<img src = "${countryData[0].flag}">`;
       div.innerHTML += `<button>${nameFromCovid}</button> `;
@@ -37,15 +48,10 @@ Promise.all([
       let btn = document.getElementsByTagName("button")[i];
 
       btn.addEventListener("click", () => {
-        if (country.length && confirmed > 0) {
+        if (country.length && active > 0) {
           createPopUp(name,population,confirmed,deaths,active,recovered);
-					console.log(name);
-					console.log(country);
-					console.log(nameFromCovid);
         } else {
-					console.log(name);
-					console.log(country);
-					console.log(nameFromCovid);
+					console.log(dataCov);
           createPopUpNoData(nameFromCovid);
         }
       });
