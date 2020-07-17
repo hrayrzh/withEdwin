@@ -12,27 +12,14 @@ Promise.all([
     const covCountries = await cv19.json();
     const worldData = await wrld.json();
     let covCountryFeatures = covCountries.features;
-
-    console.log(covCountryFeatures);
+	
     for (let i = 0; i < covCountryFeatures.length; i++) {
-			
       let div = document.createElement("div");
 			const dataCov = new Covid(covCountryFeatures[i].properties);
-			
-			
-			
       let nameFromCovid = dataCov.name;
-			
-//			console.log(nameFromCovid);
       let country = check(nameFromCovid);
-//			console.log(country);
       let countryData = worldData.filter(data => data.name === country);
-			
 			const dataCntr = new Country(countryData[0]);
-			
-			
-		
-			
 			let name = dataCntr.name;
       let population = dataCntr.population;
       let confirmed = dataCov.confirmed;
@@ -42,16 +29,13 @@ Promise.all([
 			
       div.innerHTML += `<img src = "${countryData[0].flag}">`;
       div.innerHTML += `<button>${nameFromCovid}</button> `;
-
       document.getElementById("app").appendChild(div);
-
       let btn = document.getElementsByTagName("button")[i];
-
+			
       btn.addEventListener("click", () => {
-        if (country.length && active > 0) {
+        if (country.length && recovered	 > 0) {
           createPopUp(name,population,confirmed,deaths,active,recovered);
         } else {
-					console.log(dataCov);
           createPopUpNoData(nameFromCovid);
         }
       });
