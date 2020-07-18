@@ -13,7 +13,7 @@ function check(name) {
     x = "Cyprus";
   } else if (x==="Iran") {
     x = "Iran (Islamic Republic of)";
-	}else if (x === "Sudan") {
+	} else if (x === "Sudan") {
 		x == "Sudan";
   } else if (x === "S. Sudan") {
     x = "South Sudan";

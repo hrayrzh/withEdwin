@@ -26,10 +26,9 @@ Promise.all([
 			
 			btn.addEventListener("click", () => {
         if (country.length && countryinfo.recovered > 0) {
-					console.log(countryinfo);
-         createPopUp(countryData[0].name, countryData[0].population, countryinfo.confirmed, countryinfo.deaths, countryinfo.active, countryinfo.recovered);
+         createPopUp(countryData[0], countryinfo);
         } else {
-          createPopUpNoData(countryinfo.name);
+          createPopUpNoData(countryinfo);
         }
       });
 		}
