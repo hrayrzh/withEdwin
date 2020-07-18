@@ -11,35 +11,28 @@ Promise.all([
   .then(async ([cv19, wrld]) => {
     const covCountries = await cv19.json();
     const worldData = await wrld.json();
-    let covCountryFeatures = covCountries.features;
+		let CovContry = new MyIterator(covCountries.features);
 	
-    for (let i = 0; i < covCountryFeatures.length; i++) {
-      let div = document.createElement("div");
-			const dataCov = new Covid(covCountryFeatures[i].properties);
-      let nameFromCovid = dataCov.name;
-      let country = check(nameFromCovid);
-      let countryData = worldData.filter(data => data.name === country);
-			const dataCntr = new Country(countryData[0]);
-			let name = dataCntr.name;
-      let population = dataCntr.population;
-      let confirmed = dataCov.confirmed;
-      let deaths = dataCov.deaths;
-      let active = dataCov.active;
-      let recovered = dataCov.recovered;
+		while(CovContry.hasNext()){
+			let div = document.createElement("div");
+			let countryinfo = CovContry.next().properties;
+      let country = check(countryinfo.name);
+			let countryData = worldData.filter(data => data.name === country);
 			
-      div.innerHTML += `<img src = "${countryData[0].flag}">`;
-      div.innerHTML += `<button>${nameFromCovid}</button> `;
+			div.innerHTML += `<img src = "${countryData[0].flag}">`;
+      div.innerHTML += `<button name=${countryinfo.name}>${countryinfo.name}</button> `;
       document.getElementById("app").appendChild(div);
-      let btn = document.getElementsByTagName("button")[i];
+      let btn = document.getElementsByTagName("button")[CovContry.i-1];
 			
-      btn.addEventListener("click", () => {
-        if (country.length && recovered	 > 0) {
-          createPopUp(name,population,confirmed,deaths,active,recovered);
+			btn.addEventListener("click", () => {
+        if (country.length && countryinfo.recovered > 0) {
+					console.log(countryinfo);
+         createPopUp(countryData[0].name, countryData[0].population, countryinfo.confirmed, countryinfo.deaths, countryinfo.active, countryinfo.recovered);
         } else {
-          createPopUpNoData(nameFromCovid);
+          createPopUpNoData(countryinfo.name);
         }
       });
-    }
+		}
   })
   .catch(err => {
     console.log(err);
